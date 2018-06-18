@@ -6,10 +6,14 @@ import javax.persistence.*;
  * Created by Eliza on 05.04.2018.
  */
 @Entity
-@Table(name = "animal_type", schema = "dtexample", catalog = "")
+@Table(name = "animal_type")
 public class AnimalType {
     private int id;
     private String name;
+
+    protected AnimalType(){
+
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -50,4 +54,20 @@ public class AnimalType {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
+    public static Builder createBuilder() {
+        return new AnimalType().new Builder();
+    }
+
+    public class Builder {
+        public Builder setName(String name) {
+            AnimalType.this.setName(name);
+            return this;
+        }
+
+        public AnimalType build() {
+            return AnimalType.this;
+        }
+    }
+
 }

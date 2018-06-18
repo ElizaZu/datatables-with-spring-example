@@ -9,5 +9,6 @@ import java.util.List;
  */
 
 public interface PersonDao {
-    List<Person> getPersons();
+    List<Person> findAll();
+    void saveOrUpdate(Person person);
 }
