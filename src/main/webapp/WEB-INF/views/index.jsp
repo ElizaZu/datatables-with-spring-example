@@ -12,6 +12,8 @@
 </head>
 <body>
 <h1>Examples of using Datatables + Bootstrap + Spring + Hibernate + MySQL</h1>
-<a href="/datatables-example/persons/list">Datatable ajax example</a>
+<a href="/datatables-example/persons/simple">Datatable simple example</a>
+<p>
+<a href="/datatables-example/persons/server_side">Datatable server-side example</a>
 </body>
 </html>

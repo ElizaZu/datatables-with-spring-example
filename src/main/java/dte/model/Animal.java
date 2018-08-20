@@ -6,95 +6,87 @@ import javax.persistence.*;
  * Created by Eliza on 05.04.2018.
  */
 @Entity
+@Table(name="animal")
 public class Animal {
-    private int id;
-    private String name;
-    private String breed;
-    private Integer age;
-    private Person person;
-    private AnimalType animalType;
-
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private int id;
 
     @Basic
     @Column(name = "name", nullable = false, length = 45)
-    public String getName() {
-        return name;
-    }
+    private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_breed", referencedColumnName = "id", nullable = false)
+    private AnimalBreed breed;
 
     @Basic
-    @Column(name = "breed", nullable = false, length = 45)
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    @Basic
-    @Column(name = "age", nullable = true)
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Animal animal = (Animal) o;
-
-        if (id != animal.id) return false;
-        if (name != null ? !name.equals(animal.name) : animal.name != null) return false;
-        if (breed != null ? !breed.equals(animal.breed) : animal.breed != null) return false;
-        if (age != null ? !age.equals(animal.age) : animal.age != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (breed != null ? breed.hashCode() : 0);
-        result = 31 * result + (age != null ? age.hashCode() : 0);
-        return result;
-    }
+    @Column(name = "year", nullable = false)
+    private int yearOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id", nullable = false)
+    private Person person;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getYearOfBirth() {
+        return yearOfBirth;
+    }
+    public void setYearOfBirth(int yearOfBirth) {this.yearOfBirth = yearOfBirth;}
     public Person getPerson() {
         return person;
     }
-
     public void setPerson(Person person) {
         this.person = person;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "id_type", referencedColumnName = "id", nullable = false)
-    public AnimalType getAnimalType() {
-        return animalType;
+    public AnimalBreed getBreed() {
+        return breed;
+    }
+    public void setBreed(AnimalBreed breed) {
+        this.breed = breed;
     }
 
-    public void setAnimalType(AnimalType animalType) {
-        this.animalType = animalType;
+    public static Builder newBuilder(){
+        return new Animal().new Builder();
+    }
+
+    public class Builder{
+        private Builder(){}
+
+        public Builder setName(String name){
+            Animal.this.setName(name);
+            return this;
+        }
+
+        public Builder setBreed(AnimalBreed breed){
+            Animal.this.setBreed(breed);
+            return this;
+        }
+
+        public Builder setPerson(Person person){
+            Animal.this.setPerson(person);
+            return this;
+        }
+
+        public Builder setYearOfBirth(int year){
+            Animal.this.setYearOfBirth(year);
+            return this;
+        }
+
+        public Animal build(){
+            return Animal.this;
+        }
     }
 }

@@ -70,7 +70,7 @@
 
 <body>
 <div id="container">
-    <div class="well lead">Datatables ajax example</div>
+    <div class="well lead">Datatables local example</div>
 <div class="generic-container">
     <div class="panel panel-default">
         <!-- Default panel contents -->
@@ -112,7 +112,7 @@
 
         table = $('#tb-departments').DataTable(
             {
-                responsive: true,
+                //responsive: true,
                 //stateSave: true,
                 display: true,
                 //language: tables_lang,

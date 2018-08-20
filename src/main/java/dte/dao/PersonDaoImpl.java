@@ -19,13 +19,11 @@ import java.util.List;
  * Created by ElZu on 09.04.2018.
  */
 @Repository("personDao")
-public class PersonDaoImpl implements PersonDao {
-    @Autowired
-    private SessionFactory sessionFactory;
+public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao {
 
     @Override
     public List<Person> getPersons(){
-        Session session = sessionFactory.getCurrentSession();
+        Session session = getSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Person> query  = builder.createQuery(Person.class).distinct(true);
         Root<Person> root = query.from(Person.class);
