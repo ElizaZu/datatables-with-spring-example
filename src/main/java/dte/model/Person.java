@@ -1,5 +1,8 @@
 package dte.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -29,7 +32,8 @@ public class Person {
     @Column(name = "phone", nullable = false, length = 45)
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person"/*, fetch = FetchType.EAGER*/)
     private List<Animal> animals;
 
     public int getId() {
@@ -72,7 +76,7 @@ public class Person {
         return animals;
     }
 
-    private Person() {}
+    protected Person() {}
 
     public static Builder newBuilder(){
         return new Person().new Builder();

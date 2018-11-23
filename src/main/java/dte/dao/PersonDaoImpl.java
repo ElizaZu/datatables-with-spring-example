@@ -2,6 +2,7 @@ package dte.dao;
 
 import dte.model.Person;
 import dte.service.PersonService;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,10 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
         query.select(root);
         //Predicate searchPredicate = builder.equal(root.get("lastnamess").get("id"), id);
        // query.where(searchPredicate);
-        query.orderBy(builder.asc(root.get("lastname"))).orderBy(builder.asc(root.get("firstname")));
+
+        query.orderBy(builder.asc(root.get("lastname"))).orderBy(builder.asc(root.get("firstname"))).distinct(true);
+
+
 
         TypedQuery<Person> typedQuery = session.createQuery(query);
         return typedQuery.getResultList();

@@ -67,7 +67,17 @@ public class PersonPageProvider extends PageProviderImpl<Person, PersonView> imp
 	 */
 	private Predicate getBaseSearchExpression(CriteriaBuilder builder, Root<Person> root, Map<String, Object> additionalParams){
 		Join<Object, Object> animals = root.join("animals");
-		Predicate searchPredicate = builder.equal(animals.get("breed").get("animalType"), additionalParams.get("animalType"));
+
+		Predicate searchPredicate = null;
+		if(additionalParams != null && additionalParams.get("animalType") != null) {
+			if((Integer) additionalParams.get("animalType")>0) {
+				searchPredicate = builder.equal(animals.get("breed").get("animalType"), additionalParams.get("animalType"));
+			}
+		}
+		if(searchPredicate == null){
+			searchPredicate = builder.notEqual(animals.get("breed").get("animalType"), 0);
+		}
+
 		return searchPredicate;
 	}
 }

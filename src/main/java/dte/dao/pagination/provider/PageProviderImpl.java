@@ -48,7 +48,7 @@ public abstract class PageProviderImpl<T, TView> implements PageProvider<T, TVie
      */
     private List<T> getPage(PageRequest pageRequest, Map<String, Object> additionalParams) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(typeParameterClass);
+        CriteriaQuery<T> query = builder.createQuery(typeParameterClass).distinct(true);
 
         Root<T> root = query.from(typeParameterClass);
         query.select(root);
@@ -96,7 +96,7 @@ public abstract class PageProviderImpl<T, TView> implements PageProvider<T, TVie
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery query = builder.createQuery();
         Root<T> fisPackageRoot = query.from(typeParameterClass);
-        query.select(builder.count(fisPackageRoot));
+        query.distinct(true).select(builder.count(fisPackageRoot));
 
         Predicate searchPredicate = getSearchPredicate( builder, fisPackageRoot, searchStr, additionalParams);
         if(searchPredicate != null) {
@@ -116,7 +116,7 @@ public abstract class PageProviderImpl<T, TView> implements PageProvider<T, TVie
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery query = builder.createQuery();
         Root<T> fisPackageRoot = query.from(typeParameterClass);
-        query.select(builder.count(fisPackageRoot));
+        query.distinct(true).select(builder.count(fisPackageRoot));
 
         Predicate searchPredicate = getTotalPredicate( builder, fisPackageRoot, additionalParams);
         if(searchPredicate != null) {

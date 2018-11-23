@@ -10,13 +10,6 @@ import dte.dao.pagination.model.PageTypedResponse;
  * Page provider for server-side pagination in datatables
  */
 public interface PageProvider<T, TView> {
-
-    /*List<T> getPage(String orderColumn, boolean asc, int start, int length, String searchStr, Map<String, Object> additionalParams);
-    List<T> getPage(AjaxRequest ajaxRequest, Map<String, Object> additionalParams);
-    Long getTotalCountFiltered(String searchStr, Map<String, Object> additionalParams);
-    Long getTotalCountFiltered(AjaxRequest ajaxRequest, Map<String, Object> additionalParams);
-    Long getTotalCount(Map<String, Object> additionalParams);*/
-
     PageTypedResponse<TView> getPageResponseView(PageRequest ajaxRequest, Map<String, Object> additionalParams) throws Exception;
     PageTypedResponse<T> getPageResponse(PageRequest ajaxRequest, Map<String, Object> additionalParams);
 }

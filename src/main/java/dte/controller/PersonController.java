@@ -29,22 +29,23 @@ public class PersonController {
     PersonService personService;
 
     @RequestMapping(value = { "/simple" }, method = RequestMethod.GET)
-    public String listDepartments(ModelMap model) {
+    public String simpleListOfPersons(ModelMap model) {
         model.addAttribute("persons", personService.getPersons());
         return "persons_list";
     }
 
     @RequestMapping(value = "/server_side/page/{animalType}", method = RequestMethod.POST)
     public @ResponseBody
-    PageTypedResponse<PersonView> pageSpecs(@RequestBody PageRequest pageRequest, @PathVariable Integer animalType) throws Exception {
-        return personService.getPage(pageRequest,animalType);
+    PageTypedResponse<PersonView> pageOfPersons(@RequestBody PageRequest pageRequest, @PathVariable Integer animalType) throws Exception {
+        return personService.getPage(pageRequest, animalType);
     }
 
     /**
      * This method will list all existing specs.
      */
-    @RequestMapping(value = { "/server_side" }, method = RequestMethod.GET, produces={"text/plain; charset=UTF-8"})
-    public String listSpecs(ModelMap model, HttpServletRequest request) {
+    @RequestMapping(value = { "/server_side/{animalType}" }, method = RequestMethod.GET, produces={"text/plain; charset=UTF-8"})
+    public String listOfPersons(@PathVariable Integer animalType, ModelMap model, HttpServletRequest request) {
+        model.addAttribute("animalType", animalType);
         return "persons_list_server_side";
     }
 

@@ -37,10 +37,10 @@ public class PersonView {
 		return person.getEmail();
 	}
 
-	public String getAnimalInfo(){
+	public String getAnimals(){
 		StringBuilder info = new StringBuilder();
 		for (Animal animal: person.getAnimals()){
-			info.append(String.format("%s %s (breed: %s, year of birth: %d)/n", animal.getBreed().getAnimalType().getName(), animal.getName(), animal.getBreed(), animal.getYearOfBirth()));
+			info.append(String.format("%s %s (breed: %s, year of birth: %d)<br>", animal.getBreed().getAnimalType().getName(), animal.getName(), animal.getBreed().getName(), animal.getYearOfBirth()));
 		}
 		return info.toString();
 	}

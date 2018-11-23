@@ -36,7 +36,9 @@ public class PersonServiceImpl implements PersonService {
 
     public PageTypedResponse<PersonView> getPage(PageRequest ajaxRequest, int animalType) throws Exception {
         Map<String, Object> additionalParams = new HashMap<>();
-        additionalParams.put("animalType", animalType);
+        if(animalType > 0) {
+            additionalParams.put("animalType", animalType);
+        }
         return personPageProvider.getPageResponseView(ajaxRequest, additionalParams);
     }
 }

@@ -58,6 +58,9 @@ public class Animal {
         this.breed = breed;
     }
 
+    protected Animal() {
+    }
+
     public static Builder newBuilder(){
         return new Animal().new Builder();
     }
